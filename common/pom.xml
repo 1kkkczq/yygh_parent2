@@ -13,8 +13,6 @@
    <packaging>pom</packaging>
 
 
-
-
     <modules>
         <module>common_util</module>
         <module>service_util</module>
