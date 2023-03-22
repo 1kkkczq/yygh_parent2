@@ -1,6 +1,5 @@
 package com.atguigu.yygh.hosp;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 //@MapperScan("com.atguigu.yygh.mapper")
-public class ServiceHospApplication {
+public class ServiceHospSetApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ServiceHospApplication.class , args);
+        SpringApplication.run(ServiceHospSetApplication.class , args);
     }
 }
