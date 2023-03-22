@@ -1,7 +1,7 @@
 package com.atguigu.yygh.hosp.controller;
 
 
-import com.alibaba.excel.util.StringUtils;
+
 import com.atguigu.yygh.common.exception.YyghException;
 import com.atguigu.yygh.common.result.Result;
 import com.atguigu.yygh.common.utils.MD5;
@@ -14,12 +14,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import jdk.nashorn.internal.objects.annotations.Getter;
-import org.apache.poi.util.StringUtil;
+
 import org.bouncycastle.jcajce.provider.symmetric.AES;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.Query;
@@ -35,6 +36,7 @@ import java.util.Random;
  * @author KKK
  * @since 2023-03-21
  */
+@CrossOrigin//跨域
 @Api(tags = "医院设置信息接口")
 @RestController
 @RequestMapping("/admin/hosp/hospitalSet")
@@ -64,7 +66,7 @@ public class HospitalSetController {
 
     //3.条件查询带分页
     @ApiOperation(value = "条件查询带分页")
-    @PostMapping("findPage/{current}/{limit}")
+    @PostMapping("findPageHospSet/{current}/{limit}")
     public Result findPageHospSet(@PathVariable Long current,
                                   @PathVariable Long limit,
                                   @RequestBody(required = false) HospitalSetQueryVo hospitalSetQueryVo) {
@@ -90,7 +92,7 @@ public class HospitalSetController {
 
     //4.添加医院设置
     @ApiOperation(value = "添加医院设置")
-    @PostMapping("saveHospSet")
+    @PostMapping("saveHospitalSet")
     public Result saveHospSet(@RequestBody HospitalSet hospitalSet) {
         //设置状态 1 使用  0禁用
         hospitalSet.setStatus(1);
@@ -113,12 +115,12 @@ public class HospitalSetController {
     @ApiOperation(value = "根据id获取医院设置")
     @GetMapping("getHospSet/{id}")
     public Result getHospSet(@PathVariable Long id) {
-        //模拟异常
-        try {
-            int i = 10 / 0;
-        } catch (Exception e) {
-            throw new YyghException("查询失败", 201);
-        }
+//        //模拟异常
+//        try {
+//            int i = 10 / 0;
+//        } catch (Exception e) {
+//            throw new YyghException("查询失败", 201);
+//        }
 
         HospitalSet hospitalSet = hospitalSetService.getById(id);
         return Result.ok(hospitalSet);
@@ -126,7 +128,7 @@ public class HospitalSetController {
 
     //6.修改医院设置
     @ApiOperation(value = "修改医院设置")
-    @PostMapping("updateHospSet")
+    @PostMapping("updateHospitalSet")
     public Result updateHospSet(@RequestBody HospitalSet hospitalSet) {
         boolean flag = hospitalSetService.updateById(hospitalSet);
         if (flag) {
