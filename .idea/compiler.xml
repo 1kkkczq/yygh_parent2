@@ -12,6 +12,7 @@
         <module name="model" />
         <module name="service_user" />
         <module name="service_hosp" />
+        <module name="service_cmn" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -28,6 +29,7 @@
       <module name="common_utils" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="service" options="" />
+      <module name="service_cmn" options="-parameters" />
       <module name="service_hosp" options="-parameters" />
       <module name="service_user" options="-parameters" />
       <module name="service_util" options="-parameters" />
