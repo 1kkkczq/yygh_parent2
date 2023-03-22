@@ -15,6 +15,6 @@ public class TestRead {
         String fileName = "F:\\excel\\01.xlsx";
         //调用方法读取
         EasyExcel.read(fileName , UserData.class , new ExcelListener())
-                .sheet().doRead();
+                 .sheet().doRead();
     }
 }
