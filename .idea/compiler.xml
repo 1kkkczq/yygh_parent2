@@ -8,9 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common_util" />
+        <module name="service_user" />
+        <module name="hospital_manage" />
         <module name="service_util" />
         <module name="model" />
-        <module name="service_user" />
         <module name="service_hosp" />
         <module name="service_cmn" />
       </profile>
@@ -18,6 +19,7 @@
     <bytecodeTargetLevel>
       <module name="common-utils" target="1.8" />
       <module name="common_utils" target="1.8" />
+      <module name="hospital-manage" target="1.8" />
       <module name="service_utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>
@@ -27,6 +29,8 @@
       <module name="common-utils" options="-parameters" />
       <module name="common_util" options="-parameters" />
       <module name="common_utils" options="-parameters" />
+      <module name="hospital-manage" options="-parameters" />
+      <module name="hospital_manage" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="service" options="" />
       <module name="service_cmn" options="-parameters" />
