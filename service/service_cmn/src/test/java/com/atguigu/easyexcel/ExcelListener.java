@@ -22,7 +22,7 @@ public class ExcelListener  extends AnalysisEventListener<UserData> {
     //读取表头
     @Override
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
-        System.out.println("表头信息");
+        System.out.println("表头信息" + headMap);
     }
 
     //读取之后执行
