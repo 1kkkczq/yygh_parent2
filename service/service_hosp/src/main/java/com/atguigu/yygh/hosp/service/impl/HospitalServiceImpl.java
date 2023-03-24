@@ -21,8 +21,21 @@ import java.util.Map;
 
 public class HospitalServiceImpl implements HospitalService {
 
+
+
+
     @Autowired
     private HospitalRepository hospitalRepository;
+
+
+//    根据医院编号查询
+
+    @Override
+    public Hospital getByHoscode(String hoscode) {
+        Hospital hospital = hospitalRepository.getHospitalByHoscode(hoscode);
+        return hospital;
+    }
+
 
     //上传医院接口
 
