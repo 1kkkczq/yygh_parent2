@@ -8,12 +8,15 @@ import com.atguigu.yygh.common.utils.MD5;
 import com.atguigu.yygh.hosp.service.DepartmentService;
 import com.atguigu.yygh.hosp.service.HospitalService;
 import com.atguigu.yygh.hosp.service.HospitalSetService;
+import com.atguigu.yygh.hosp.service.ScheduleService;
 import com.atguigu.yygh.model.hosp.Department;
 import com.atguigu.yygh.model.hosp.Hospital;
+import com.atguigu.yygh.model.hosp.Schedule;
 import com.atguigu.yygh.vo.hosp.DepartmentQueryVo;
 
 import com.atguigu.yygh.vo.hosp.DepartmentVo;
 
+import com.atguigu.yygh.vo.hosp.ScheduleQueryVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +51,113 @@ public class ApiController {
     private HospitalSetService hospitalSetService;
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private ScheduleService scheduleService;
+
+    //删除排班的接口
+    @ApiOperation(value = "删除排班的接口")
+    @PostMapping("schedule/remove")
+    public  Result remove(HttpServletRequest request){
+        //获取医院传递过来的信息
+        Map<String, String[]> requestMap = request.getParameterMap();
+        Map<String, Object> paramMap = HttpRequestHelper.switchMap(requestMap);
+        //获取医院编号
+        String hoscode = (String) paramMap.get("hoscode");
+        //获取排班编号
+        String hosScheduleId = (String) paramMap.get("hosScheduleId");
+
+        //获取医院系中传递过来的签名
+        String hospSign = (String) paramMap.get("sign");  //签名已经进行MD5加密
+        //3根据传递过来的医院编号去查询医院设置的数据库看签名是否一样
+        String signKey = hospitalSetService.getSignKey_(hoscode);
+
+        // 4再把医院设置数据库查出来的签名进行md5加密  看跟医院那边 也就是上面获得的签名是否一致
+        String signKeyMd5 = MD5.encrypt(signKey);
+        //判断是否一致  签名校验
+        if (!hospSign.equals(signKeyMd5)) {
+            throw new YyghException(ResultCodeEnum.SIGN_ERROR);
+        }
+
+        scheduleService.remove(hoscode , hosScheduleId);
+        return Result.ok();
+
+    }
+
+
+
+
+
+    //查询排班的接口
+    @ApiOperation(value = "查询排班的接口")
+    @PostMapping("schedule/list")
+    public  Result findSchedule(HttpServletRequest request){
+        //获取医院传递过来的信息
+        Map<String, String[]> requestMap = request.getParameterMap();
+        Map<String, Object> paramMap = HttpRequestHelper.switchMap(requestMap);
+        //获取医院编号
+        String hoscode = (String) paramMap.get("hoscode");
+        //获取科室编号
+        String depcode = (String) paramMap.get("depcode");
+
+        //当前页
+        int page = StringUtils.isEmpty(paramMap.get("page"))
+                ? 1 : Integer.parseInt((String) paramMap.get("page"));
+        //每页显示记录数
+        int limit = StringUtils.isEmpty(paramMap.get("limit"))
+                ? 1 : Integer.parseInt((String) paramMap.get("limit"));
+
+        //获取医院系中传递过来的签名
+        String hospSign = (String) paramMap.get("sign");  //签名已经进行MD5加密
+        //3根据传递过来的医院编号去查询医院设置的数据库看签名是否一样
+        String signKey = hospitalSetService.getSignKey_(hoscode);
+
+        // 4再把医院设置数据库查出来的签名进行md5加密  看跟医院那边 也就是上面获得的签名是否一致
+        String signKeyMd5 = MD5.encrypt(signKey);
+        //判断是否一致  签名校验
+        if (!hospSign.equals(signKeyMd5)) {
+            throw new YyghException(ResultCodeEnum.SIGN_ERROR);
+        }
+
+        ScheduleQueryVo scheduleQueryVo = new ScheduleQueryVo();
+        scheduleQueryVo.setHoscode(hoscode);
+        scheduleQueryVo.setDepcode(depcode);
+        Page<Schedule> pageModel =
+                scheduleService.findPageSchedule(page, limit, scheduleQueryVo);
+        return Result.ok(pageModel);
+    }
+
+
+
+
+
+
+    //添加排班的接口
+    @ApiOperation(value = "上传排班的接口")
+    @PostMapping("saveSchedule")
+    public Result saveSchedule(HttpServletRequest request){
+        //获取医院传递过来的信息
+        Map<String, String[]> requestMap = request.getParameterMap();
+        Map<String, Object> paramMap = HttpRequestHelper.switchMap(requestMap);
+        //获取医院编号
+        String hoscode = (String) paramMap.get("hoscode");
+        //获取医院系中传递过来的签名
+        String hospSign = (String) paramMap.get("sign");  //签名已经进行MD5加密
+        //3根据传递过来的医院编号去查询医院设置的数据库看签名是否一样
+        String signKey = hospitalSetService.getSignKey_(hoscode);
+
+        // 4再把医院设置数据库查出来的签名进行md5加密  看跟医院那边 也就是上面获得的签名是否一致
+        String signKeyMd5 = MD5.encrypt(signKey);
+        //判断是否一致  签名校验
+        if (!hospSign.equals(signKeyMd5)) {
+            throw new YyghException(ResultCodeEnum.SIGN_ERROR);
+        }
+        scheduleService.save(paramMap);
+        return Result.ok();
+    }
+
+
+
 
 
     //删除科室接口
