@@ -25,7 +25,7 @@
     </dependencies>
 
     <build>
-        <finalName>service-hosp</finalName>
+        <finalName>service_hosp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

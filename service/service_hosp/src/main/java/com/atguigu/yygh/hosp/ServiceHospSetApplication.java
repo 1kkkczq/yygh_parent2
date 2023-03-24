@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @注释:
  */
 @SpringBootApplication
-@MapperScan("com.atguigu")
+//@MapperScan("com.atguigu")  和 mapper只能加一个
 public class ServiceHospSetApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceHospSetApplication.class , args);

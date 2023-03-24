@@ -9,17 +9,17 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common_util" />
         <module name="service_user" />
-        <module name="hospital_manage" />
         <module name="service_util" />
         <module name="model" />
         <module name="service_hosp" />
         <module name="service_cmn" />
+        <module name="hospital-manage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common-utils" target="1.8" />
       <module name="common_utils" target="1.8" />
-      <module name="hospital-manage" target="1.8" />
+      <module name="hospital_manage" target="1.8" />
       <module name="service_utils" target="1.8" />
     </bytecodeTargetLevel>
   </component>
