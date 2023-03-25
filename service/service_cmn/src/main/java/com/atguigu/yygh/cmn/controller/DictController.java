@@ -71,7 +71,7 @@ public class DictController {
     @GetMapping("getName/{value}")
 
     public String getName(@PathVariable String value) {
-        String dictName = dictService.getDictName(value);
+        String dictName = dictService.getDictName("" ,value);
         return dictName;
     }
 }
