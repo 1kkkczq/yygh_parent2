@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @version 1.0
@@ -17,6 +18,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 
 @EnableDiscoveryClient  //nacos注册中心
+@EnableFeignClients( basePackages = "com.atguigu")
 //@MapperScan("com.atguigu")  和 mapper只能加一个
 public class ServiceHospSetApplication {
     public static void main(String[] args) {

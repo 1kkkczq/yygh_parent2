@@ -1,6 +1,7 @@
 package com.atguigu.yygh.hosp.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.atguigu.yygh.cmn.client.DictFeignClient;
 import com.atguigu.yygh.hosp.repository.HospitalRepository;
 import com.atguigu.yygh.hosp.service.HospitalService;
 import com.atguigu.yygh.model.hosp.Hospital;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 
@@ -27,6 +29,8 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Autowired
     private HospitalRepository hospitalRepository;
+    @Autowired
+    private DictFeignClient dictFeignClient;
 
     //医院条件查询分页列表 (MongoDB)
     @Override
@@ -44,8 +48,32 @@ public class HospitalServiceImpl implements HospitalService {
         //创建对象
         Example<Hospital> example = Example.of(hospital, matcher);
 
-        Page<Hospital> all = hospitalRepository.findAll(example, pageable);
-        return null;
+        Page<Hospital> pages = hospitalRepository.findAll(example, pageable);
+        //pages只有医院的基本信息 没有等级信息
+        //得到pages的医院基本信息集合 Hospital中并没有医院等级信息
+        //把等级信息封装到param里去
+//        List<Hospital> content = pages.getContent();
+        //遍历集合进行医院等级分装
+        pages.getContent().stream().forEach(item ->{
+            this.setHospitalHosType(item);
+        });
+
+
+        return pages;
+    }
+
+//    遍历集合进行医院等级分装
+    private Hospital setHospitalHosType(Hospital hospital) {
+        //根据dictCode和 value 获取医院等级名称
+        String hostypeString = dictFeignClient.getName("Hostype", hospital.getHostype());
+        //查询省 市 地区
+        String privinceString = dictFeignClient.getName(hospital.getProvinceCode());
+        String cityString = dictFeignClient.getName(hospital.getCityCode());
+        String districtString = dictFeignClient.getName(hospital.getDistrictCode());
+
+        hospital.getParam().put("fullAddress" , privinceString+cityString+districtString);
+        hospital.getParam().put("hostypeString" , hostypeString);
+        return hospital;
     }
 
 //    根据医院编号查询

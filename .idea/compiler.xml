@@ -11,9 +11,10 @@
         <module name="service_user" />
         <module name="service_util" />
         <module name="model" />
-        <module name="service_hosp" />
-        <module name="service_cmn" />
+        <module name="service_cmn_client" />
         <module name="hospital-manage" />
+        <module name="service_cmn" />
+        <module name="service_hosp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -33,7 +34,9 @@
       <module name="hospital_manage" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="service" options="" />
+      <module name="service_client" options="" />
       <module name="service_cmn" options="-parameters" />
+      <module name="service_cmn_client" options="-parameters" />
       <module name="service_hosp" options="-parameters" />
       <module name="service_user" options="-parameters" />
       <module name="service_util" options="-parameters" />
