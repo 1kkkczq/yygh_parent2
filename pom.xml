@@ -16,6 +16,7 @@
         <module>model</module>
         <module>service</module>
         <module>service_client</module>
+        <module>service_gateway</module>
     </modules>
     <version>0.0.1-SNAPSHOT</version>
     <name>yygh_parent</name>

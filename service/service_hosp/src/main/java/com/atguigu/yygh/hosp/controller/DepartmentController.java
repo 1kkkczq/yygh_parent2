@@ -17,7 +17,7 @@ import java.util.List;
  * @注释:
  */
 @Api(tags = "医院科室信息接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/hosp/department")
 public class DepartmentController {

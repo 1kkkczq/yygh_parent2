@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2023-03-22
  */
 @Api(tags = "数据字典接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/cmn/dict")
 public class DictController {

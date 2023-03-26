@@ -19,7 +19,7 @@ import java.util.Map;
  * @注释:
  */
 @Api(tags = "医院排班规则接口")
-@CrossOrigin
+//@CrossOrigin
 @RestController
 @RequestMapping("/admin/hosp/schedule")
 public class ScheduleController {

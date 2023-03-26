@@ -38,7 +38,7 @@ import java.util.Random;
  */
 @CrossOrigin//跨域
 @Api(tags = "医院设置信息接口")
-@RestController
+//@RestController
 @RequestMapping("/admin/hosp/hospitalSet")
 @ComponentScan(basePackages = "com.atguigu")
 public class HospitalSetController {
