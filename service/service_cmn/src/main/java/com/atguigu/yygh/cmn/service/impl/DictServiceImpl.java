@@ -41,6 +41,17 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
 //        @Autowired
 //        private DictMapper dictMapper;
 
+//    根据dictCode获取下级节点
+    @Override
+    public List<Dict> findByDictCode(String dictCode) {
+        //根据dictCode获取对应id
+        Dict dict = this.getDictByDictCode(dictCode);
+
+        //根据id获取对应节点
+        List<Dict> childData = this.findChildData(dict.getId());
+        return childData;
+    }
+
     //导入数据字典
     @Override
     @CacheEvict(value ="dict" , allEntries = true)  //清空缓存
@@ -58,8 +69,6 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     //导出数据字典
     @Override
     public void exportDictData(HttpServletResponse response) {
-
-
         //设置下载信息
         try {
             response.setContentType("application/vnd.ms-excel");

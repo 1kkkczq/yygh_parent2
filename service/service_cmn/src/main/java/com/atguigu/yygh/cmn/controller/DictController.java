@@ -42,6 +42,8 @@ public class DictController {
 
 
     //导出数据字典
+
+
     @ApiOperation(value = "导出数据字典")
     @GetMapping("exportData")
     public void exportDict(HttpServletResponse response) {
@@ -57,6 +59,16 @@ public class DictController {
         return Result.ok(list);
     }
 
+    //根据dictCode获取下级节点
+    @ApiOperation(value = "根据dictCode获取下级节点")
+    @GetMapping("/findByDictCode/{dictCode}")
+    public Result findByDictCode(@PathVariable String dictCode) {
+        List<Dict> list = dictService.findByDictCode(dictCode);
+        return Result.ok(list);
+
+    }
+
+
     //根据dictcode和 value 查询
     @ApiOperation(value = "根据dictcode和 value 查询")
     @GetMapping("getName/{dictCode}/{value}")
@@ -66,12 +78,13 @@ public class DictController {
         String dictName = dictService.getDictName(dictCode, value);
         return dictName;
     }
+
     //根据value查询
     @ApiOperation(value = "根据 value 查询")
     @GetMapping("getName/{value}")
 
     public String getName(@PathVariable String value) {
-        String dictName = dictService.getDictName("" ,value);
+        String dictName = dictService.getDictName("", value);
         return dictName;
     }
 }

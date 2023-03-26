@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -31,6 +29,39 @@ public class HospitalServiceImpl implements HospitalService {
     private HospitalRepository hospitalRepository;
     @Autowired
     private DictFeignClient dictFeignClient;
+
+
+
+
+    //医院详情信息
+    @Override
+    public Map<String , Object> getHospById(String id) {
+//       Hospital hospital = hospitalRepository.findById(id).get();
+        Hospital hospital = this.setHospitalHosType(hospitalRepository.
+                findById(id).get());
+      Map<String, Object> resultMap = new HashMap<>();
+      //医院基本信息 包含医院等级
+        resultMap.put("hospital" , hospital);
+        //单独处理预约规则
+      resultMap.put("bookingRule" , hospital.getBookingRule());
+      //不需要重复返回
+        hospital.setBookingRule(null);
+        return resultMap;
+
+    }
+
+
+    //更新医院的上线状态
+    @Override
+    public void updateStatus(String id, Integer status) {
+        //根据id查询医院信息
+        Hospital hospital = hospitalRepository.findById(id).get();
+        //修改值
+        hospital.setStatus(status);
+        hospital.setUpdateTime(new Date());
+        hospitalRepository.save(hospital);
+
+    }
 
     //医院条件查询分页列表 (MongoDB)
     @Override
