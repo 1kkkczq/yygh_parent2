@@ -16,7 +16,7 @@ import java.util.List;
  * @Date 2023/3/26    14:23
  * @注释:
  */
-@Api(tags = "医院排班信息接口")
+@Api(tags = "医院科室信息接口")
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/hosp/department")

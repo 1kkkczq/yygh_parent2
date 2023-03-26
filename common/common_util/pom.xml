@@ -11,7 +11,7 @@
 
     <artifactId>common_util</artifactId>
 
-<!--    <dependencies>-->
+    <dependencies>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.httpcomponents</groupId>-->
 <!--            <artifactId>httpclient</artifactId>-->
@@ -32,12 +32,12 @@
 <!--            <artifactId>easyexcel</artifactId>-->
 <!--        </dependency>-->
 
-<!--        &lt;!&ndash; 日期工具栏依赖 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>joda-time</groupId>-->
-<!--            <artifactId>joda-time</artifactId>-->
-<!--        </dependency>-->
-<!--    </dependencies>-->
+        <!-- 日期工具栏依赖 -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>
