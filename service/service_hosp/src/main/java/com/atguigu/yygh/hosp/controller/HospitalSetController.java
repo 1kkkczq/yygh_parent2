@@ -36,9 +36,9 @@ import java.util.Random;
  * @author KKK
  * @since 2023-03-21
  */
-@CrossOrigin//跨域
+//@CrossOrigin//跨域
 @Api(tags = "医院设置信息接口")
-//@RestController
+@RestController
 @RequestMapping("/admin/hosp/hospitalSet")
 @ComponentScan(basePackages = "com.atguigu")
 public class HospitalSetController {
